@@ -3,3 +3,16 @@
   margin-left: -5em;
   color: #e83e8c;
 }
+
+#tiny {
+  border-radius: 50%;
+  animation-name: fade;
+  animation-duration: 3s;
+}
+
+@keyframes fade {
+  50% {
+    left: 60%;
+    opacity: 0.1;
+  }
+}
