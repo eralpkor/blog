@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Coding blog">
+  <meta name="keywords" content="HTML,CSS,JavaScript,React,git,github">
+  <meta name="author" content="Eralp Kor">
+  
+
+  <title>Generating a MD5 hash in NodeJS for CodeWars challenge.</title>
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon-16x16.png"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon-32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Custom styles for this template -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><img id="tiny" src="./img/favicon-32x32.png"></a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://eralpkor.com">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- style="background-image: url('img/mac-code.jpg')" -->
+  <!-- Page Header -->
+  <header class="masthead" id="post02-image">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>CodeWars Challenge Password Hashes, Generating a MD5 hash in Node.JS</h1>
+            <h2 class="subheading">Well... what the heck?</h2>
+            <span class="meta">Posted by
+              <a href="https://eralpkor.com">Eralp</a>
+              on May 15, 2019</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+          <p>I get weekly CodeWars challenges in my email. This week I've got <em>Password Hashes</em> challenge that require me to do some magic that I am not aware of and no clue where to start?</p>
+
+          <p><strong>Password Hashes challenge:</strong></p>
+
+          <blockquote>
+            <p>When you sign up for an account somewhere, some websites do not actually store your password in their databases. Instead, they will transform your password into something else using a cryptographic hashing algorithm.</p>
+
+            <p>After the password is transformed, it is then called a password hash. Whenever you try to login, the website will transform the password you tried using the same hashing algorithm and simply see if the password hashes are the same.</p>
+            
+            <p>Create the function that converts a given string into an md5 hash. The return value should be encoded in hexadecimal.</p>
+            
+            <p>You will need to use the NodeJS Crypto Module or libcrypto for the C and NASM versions.</p>
+          </blockquote>
+
+          <p><strong>Code Examples</strong></p>
+          <code>passHash('password') //--> '5f4dcc3b5aa765d61d8327deb882cf99'</code>
+          <code>passHash('abc123') //--> 'e99a18c428cb38d5f260853678922e03'</code>
+              
+
+          <p>Lucky me that challenge's owner put a link to Node.js documentation <a href="https://nodejs.org/api/crypto.html" target="_blank">NodeJs Crypto Module</a>.</p>
+
+          <p>I've followed the URL and start reading docs, scrolled down to <code>crypto.createHash(algorithm[, options])</code> then I found the following example.</p>
+
+          <h2 class="section-heading">Node.Js Documentation Example:</h2>
+          <blockquote class="blockquote">
+            Generating the sha256 sum of a file
+          </blockquote>
+          <pre class="code-block">
+            <code>
+              const filename = process.argv[2];
+              const crypto = require('crypto');
+              const fs = require('fs');
+
+              const hash = crypto.createHash('sha256');
+
+              const input = fs.createReadStream(filename);
+              input.on('readable', () => {
+                // Only one element is going to be produced by the
+                // hash stream.
+                const data = input.read();
+                if (data)
+                  hash.update(data);
+                else {
+                  console.log(`${hash.digest('hex')} ${filename}`);
+                }
+              });
+            </code>
+          </pre>
+
+          <p><strong>Where do we go from here?</strong></p>
+
+          <ul>
+            <li>I need to import module <code>crypto</code></li>
+            
+            <blockquote class="blockquote">
+                This module offers a way of an encapsulating credentials. 
+            </blockquote>
+            <li>I than create md5 hash <code>crypto.createHash('md5')</code></li>
+            <blockquote class="blockquote">
+               Module uses createHash() function which returns an instance of the hash object.
+            </blockquote>
+            <li>I also need to get the string and update <code>update('password')</code></li>
+            <blockquote class="blockquote">
+                Hash object contains update() function to update the hash contents with the given data.
+            </blockquote>
+            <li>Finally I need to calculate passed data <code>digest("hex")</code></li>
+            <blockquote class="blockquote">
+                The <code>digest()</code> function calculates the digest of all the passed data to be hashed.
+            </blockquote>
+          </ul>
+
+          <div class="col-xl-12 gist">
+              <script src="https://gist.github.com/eralpkor/224a9f0e56d1757e5cddedcebafb9e85.js"></script>
+          </div>
+          
+          <p>Well that is it! I submit it and past the tests.</p>
+
+          <p>References by, 
+            <a href="https://nodejs.org/api/crypto.html">Node.Js Crypto</a>, 
+            <a href="https://www.dotnetcurry.com/nodejs/1237/digest-authentication-nodejs-application"> Authentication using Node.Js</a>.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="https://twitter.com/Eralp_K" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/eralpkor/" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://github.com/eralpkor" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy; eralpkor.com <span id="year"></span></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/clean-blog.min.js"></script>
+  <script src="./js/blog.js"></script>
+
+</body>
+
+</html>

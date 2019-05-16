@@ -16,3 +16,50 @@
     opacity: 0.1;
   }
 }
+
+.gist {
+  padding-top: 2vh;
+ 
+}
+
+#home-image {
+  background-image: url('../img/home-bg.jpg')
+}
+
+#about-image {
+  background-image: url('../img/about-bg.jpg')
+}
+
+#contact-image {
+  background-image: url('../img/contact-bg.jpg')
+}
+
+#post01-image {
+  background-image: url('../img/github.jpg')
+}
+
+#post02-image {
+  background-image: url('../img/mac-code.jpg')
+}
+
+ @media screen and (max-width: 1500px) {
+  #post01-image {
+    background-image: url('../img/github-small.jpg')
+  }
+
+   #post02-image {
+     background-image: url('../img/mac-code-small.jpg')
+   }
+
+   #home-image {
+    background-image: url('../img/home-bg-small.jpg')
+  }
+
+  #about-image {
+    background-image: url('../img/about-bg-small.jpg')
+  }
+
+  #contact-image {
+    background-image: url('../img/contact-bg-small.jpg')
+  }
+ }
