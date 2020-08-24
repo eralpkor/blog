@@ -42,6 +42,13 @@
   background-image: url('../img/mac-code.jpg')
 }
 
+#post03-image {
+  background-image: url('../img/facebook.jpg');
+  /* background-color: #212529; */
+  /* opacity: 0.9; */
+  /* margin-top: 30px; */
+}
+
  @media screen and (max-width: 1500px) {
   #post01-image {
     background-image: url('../img/github-small.jpg')
